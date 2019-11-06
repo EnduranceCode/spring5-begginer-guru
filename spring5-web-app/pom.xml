@@ -16,6 +16,10 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<!-- Workaround to fix the Bug 547340 on Eclipse -->
+		<!-- Permanent bug fix: https://bugs.eclipse.org/bugs/show_bug.cgi?id=547340#c9 -->
+		<!-- Workaround fix found on https://stackoverflow.com/a/56275263 -->
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
 
 	<dependencies>
