@@ -1,21 +1,26 @@
 package guru.springframework.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
-import guru.springframework.services.GreetinService;
+import guru.springframework.services.GreetingService;
 
 @Controller
 public class SetterInjectedController {
 
-    private GreetinService greetinService;
+    private GreetingService greetingService;
 
+    /*
+     * The string value of the qualifier corresponds to the name of the
+     * implementation class in camel case
+     */
     @Autowired
-    public void setGreetinService(GreetinService greetinService) {
-        this.greetinService = greetinService;
+    public void setGreetingService(@Qualifier("setterGreetingService") GreetingService greetingService) {
+        this.greetingService = greetingService;
     }
 
     public String sayHello() {
-        return greetinService.sayGreeting();
+        return greetingService.sayGreeting();
     }
 }

@@ -1,27 +1,29 @@
 package guru.springframework.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
-import guru.springframework.services.GreetinService;
+import guru.springframework.services.GreetingService;
 
 @Controller
 public class ConstructorInjectedController {
 
-    private GreetinService greetinService;
+    private GreetingService greetingService;
 
     /*
      * With constructor injection, the Autowired annotation is not necessary but
      * it can be a good idea to use anyway because it makes our intentions more
-     * explicit
+     * explicit. The string value of the qualifier corresponds to the name of
+     * the implementation class in camel case.
      */
     @Autowired
-    public ConstructorInjectedController(GreetinService greetinService) {
+    public ConstructorInjectedController(@Qualifier("constructorGreetingService") GreetingService greetingService) {
         super();
-        this.greetinService = greetinService;
+        this.greetingService = greetingService;
     }
 
     public String sayHello() {
-        return greetinService.sayGreeting();
+        return greetingService.sayGreeting();
     }
 }
