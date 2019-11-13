@@ -10,10 +10,10 @@
 	</parent>
 
 	<groupId>guru.springframework</groupId>
-	<artifactId>spring5webapp</artifactId>
+	<artifactId>spring5-web-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>spring5webapp</name>
+	<name>spring5-web-app</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
