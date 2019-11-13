@@ -20,6 +20,9 @@ public class JokeController {
 
     @GetMapping(value = { "/", "" })
     public String getJoke(Model model) {
+        
+        model.addAttribute("joke", jokeService.getJoke());
+        
         return null;
     }
 }
