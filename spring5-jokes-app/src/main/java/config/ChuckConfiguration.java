@@ -1,14 +1,11 @@
 package config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import guru.springframework.norris.chuck.ChuckNorrisQuotes;
 
-@Configuration
+/* @Configuration annotation removed to implement XML configuration */
 public class ChuckConfiguration {
 
-    @Bean
+    /* @Bean annotation removed to implement XML configuration */
     public ChuckNorrisQuotes chuckNorrisQuotes() {
         return new ChuckNorrisQuotes();
     }
