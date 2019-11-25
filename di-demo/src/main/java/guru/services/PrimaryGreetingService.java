@@ -1,13 +1,14 @@
-package guru.springframework.services;
+package guru.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("de")
+@Profile({ "en", "default" })
 @Primary
-public class PrimaryGermanGreetingService implements GreetingService {
+public class PrimaryGreetingService implements GreetingService {
 
     private GreetingRepository greetingRepository;
 
@@ -17,13 +18,14 @@ public class PrimaryGermanGreetingService implements GreetingService {
      * explicit. The string value of the qualifier corresponds to the name of
      * the implementation class in camel case.
      */
-    public PrimaryGermanGreetingService(GreetingRepository greetingRepository) {
+    @Autowired
+    public PrimaryGreetingService(GreetingRepository greetingRepository) {
         super();
         this.greetingRepository = greetingRepository;
     }
 
     @Override
     public String sayGreeting() {
-        return greetingRepository.getGermanGreeting();
+        return greetingRepository.getEnglishGreeting();
     }
 }
