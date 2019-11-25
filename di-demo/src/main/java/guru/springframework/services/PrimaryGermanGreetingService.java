@@ -1,14 +1,8 @@
-package guru.services;
+package guru.springframework.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
 
-@Service
-@Profile("es")
-@Primary
-public class PrimarySpanishGreetingService implements GreetingService {
+public class PrimaryGermanGreetingService implements GreetingService {
 
     private GreetingRepository greetingRepository;
 
@@ -19,13 +13,13 @@ public class PrimarySpanishGreetingService implements GreetingService {
      * the implementation class in camel case.
      */
     @Autowired
-    public PrimarySpanishGreetingService(GreetingRepository greetingRepository) {
+    public PrimaryGermanGreetingService(GreetingRepository greetingRepository) {
         super();
         this.greetingRepository = greetingRepository;
     }
 
     @Override
     public String sayGreeting() {
-        return greetingRepository.getSpanishGreeting();
+        return greetingRepository.getGermanGreeting();
     }
 }
