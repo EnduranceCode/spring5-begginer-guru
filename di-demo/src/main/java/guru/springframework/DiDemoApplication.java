@@ -9,6 +9,7 @@ import guru.springframework.controllers.ConstructorInjectedController;
 import guru.springframework.controllers.MyController;
 import guru.springframework.controllers.PropertyInjectedController;
 import guru.springframework.controllers.SetterInjectedController;
+import guru.springframework.examplebeans.FakeDataSource;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"guru.springframework"})
@@ -24,5 +25,11 @@ public class DiDemoApplication {
         System.out.println(context.getBean(PropertyInjectedController.class).sayHello());
         System.out.println(context.getBean(SetterInjectedController.class).sayHello());
         System.out.println(context.getBean(ConstructorInjectedController.class).sayHello());
+        
+        FakeDataSource fakeDataSource = context.getBean(FakeDataSource.class);
+        System.out.println("");
+        System.out.println("Value extracted from a properties file:");
+        System.out.println(fakeDataSource.getUsername());
+        System.out.println("");
     }
 }
