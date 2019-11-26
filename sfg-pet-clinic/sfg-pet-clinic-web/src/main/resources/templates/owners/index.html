@@ -18,6 +18,7 @@
 			</tr>
 		</thead>
 		<tbody>
+			<!-- ${owners} refers to the "owners" key of the Model defined in the OwnerController -->
 			<tr th:each="owner : ${owners}">
 				<td th:text="${owner.id}">1</td>
 				<td th:text="${owner.firstName}">John</td>
