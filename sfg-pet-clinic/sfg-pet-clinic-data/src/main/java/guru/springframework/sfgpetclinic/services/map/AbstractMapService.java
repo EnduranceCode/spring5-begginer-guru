@@ -1,17 +1,31 @@
 package guru.springframework.sfgpetclinic.services.map;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
-public abstract class AbstractMapService<T, N> {
+import guru.springframework.sfgpetclinic.model.BaseEntity;
 
-    protected Map<N, T> map = new HashMap<>();
+public abstract class AbstractMapService<T extends BaseEntity, N extends Long> {
 
-    T save(N id, T object) {
+    protected Map<Long, T> map = new HashMap<>();
 
-        map.put(id, object);
+    T save(T object) {
+
+        if (object != null) {
+            if (object.getId() == null) {
+
+                object.setId(getNextID());
+            }
+        } else {
+            
+            throw new RuntimeException("Object cannot be null");
+        }
+
+        map.put(object.getId(), object);
 
         return object;
     }
@@ -30,5 +44,20 @@ public abstract class AbstractMapService<T, N> {
 
     void deleteByID(N id) {
         map.remove(id);
+    }
+
+    private Long getNextID() {
+
+        Long nextId = null;
+
+        try {
+
+            nextId = Collections.max(map.keySet()) + 1;
+        } catch (NoSuchElementException e) {
+
+            nextId = 1L;
+        }
+
+        return nextId;
     }
 }
