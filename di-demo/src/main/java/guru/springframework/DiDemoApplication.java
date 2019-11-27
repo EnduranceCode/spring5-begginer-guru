@@ -10,6 +10,7 @@ import guru.springframework.controllers.MyController;
 import guru.springframework.controllers.PropertyInjectedController;
 import guru.springframework.controllers.SetterInjectedController;
 import guru.springframework.examplebeans.FakeDataSource;
+import guru.springframework.examplebeans.FakeJmsBroker;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"guru.springframework"})
@@ -30,6 +31,11 @@ public class DiDemoApplication {
         System.out.println("");
         System.out.println("Value extracted from a property:");
         System.out.println(fakeDataSource.getUsername());
+        System.out.println("");
+        
+        FakeJmsBroker fakeJmsBroker = context.getBean(FakeJmsBroker.class);
+        System.out.println("Value extracted from a second properties file:");
+        System.out.println(fakeJmsBroker.getUsername());
         System.out.println("");
     }
 }
