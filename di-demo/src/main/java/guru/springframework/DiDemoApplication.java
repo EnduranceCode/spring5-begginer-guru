@@ -28,7 +28,7 @@ public class DiDemoApplication {
         
         FakeDataSource fakeDataSource = context.getBean(FakeDataSource.class);
         System.out.println("");
-        System.out.println("Value extracted from a properties file:");
+        System.out.println("Value extracted from a property:");
         System.out.println(fakeDataSource.getUsername());
         System.out.println("");
     }
