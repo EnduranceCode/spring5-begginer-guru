@@ -1,0 +1,12 @@
+guru:
+  jms:
+    username: username ymal
+    password: password ymal
+    url: url ymal
+
+---
+spring:
+  profiles: de
+guru:
+  jms:
+    username: nutzername ymal

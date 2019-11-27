@@ -43,7 +43,7 @@ public class PropertyConfig {
     public FakeDataSource fakeDataSource() {
 
         FakeDataSource fakeDataSource = new FakeDataSource();
-        fakeDataSource.setUsername(environment.getProperty("GURU_USER"));
+        fakeDataSource.setUsername(username);
         fakeDataSource.setPassword(password);
         fakeDataSource.setDbURL(dbURL);
 
