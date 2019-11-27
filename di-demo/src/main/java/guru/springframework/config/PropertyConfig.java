@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 
@@ -13,14 +11,6 @@ import guru.springframework.examplebeans.FakeDataSource;
 import guru.springframework.examplebeans.FakeJmsBroker;
 
 @Configuration
-/*
- * Remove @PropertySource(value = {"classpath:fakedatasource.properties", "classpath:fakejms.properties"}) annotation
- * to implement @PropertySources({}) annotation
- */
-@PropertySources({
-    @PropertySource(value = "classpath:fakedatasource.properties"),
-    @PropertySource(value = "classpath:fakejms.properties")
-})
 public class PropertyConfig {
 
     @Autowired
