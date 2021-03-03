@@ -94,7 +94,7 @@
 	</build>
 
 	<scm>
-		<developerConnection>scm:git:git@github.com:EnduranceCode/sfg-pet-clinic.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:EnduranceCode/spring5-begginer-guru.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 </project>
