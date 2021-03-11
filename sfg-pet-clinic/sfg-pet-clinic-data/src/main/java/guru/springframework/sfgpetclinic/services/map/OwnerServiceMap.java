@@ -57,6 +57,11 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
     }
 
     @Override
+    public Owner findByLastName(String lastName) {
+        return null;
+    }
+
+    @Override
     public void delete(Owner owner) {
         super.delete(owner);
     }
@@ -64,10 +69,5 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
     @Override
     public void deleteByID(Long id) {
         super.deleteByID(id);
-    }
-
-    @Override
-    public Owner findByLastName(String lastName) {
-        return null;
     }
 }
