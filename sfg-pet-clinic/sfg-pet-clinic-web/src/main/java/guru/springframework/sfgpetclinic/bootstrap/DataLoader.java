@@ -1,5 +1,7 @@
 package guru.springframework.sfgpetclinic.bootstrap;
 
+import guru.springframework.sfgpetclinic.model.PetType;
+import guru.springframework.sfgpetclinic.services.PetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -14,12 +16,14 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final PetTypeService petTypeService;
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
         super();
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
@@ -34,19 +38,33 @@ public class DataLoader implements CommandLineRunner {
         ownerTwo.setFirstName("Fiona");
         ownerTwo.setLastName("Glenanne");
         ownerService.save(ownerTwo);
-        
+
         System.out.println("Loaded Owners...");
-        
+
         Vet vetOne = new Vet();
         vetOne.setFirstName("Sam");
         vetOne.setLastName("Axe");
         vetService.save(vetOne);
-        
+
         Vet vetTwo = new Vet();
         vetTwo.setFirstName("Jessie");
         vetTwo.setLastName("Porter");
         vetService.save(vetTwo);
-        
+
         System.out.println("Loaded Vets...");
+
+        createPetTypeDataSet();
+    }
+
+    private void createPetTypeDataSet() {
+        PetType dog = new PetType();
+        dog.setName("Dog");
+        PetType savedDogPetType = petTypeService.save(dog);
+
+        PetType cat = new PetType();
+        cat.setName("Cat");
+        PetType savedCatPetType = petTypeService.save(cat);
+
+        System.out.println("Loaded PetTypes...");
     }
 }
