@@ -1,11 +1,9 @@
 package guru.springframework.sfgpetclinic.bootstrap;
 
-import guru.springframework.sfgpetclinic.model.Owner;
-import guru.springframework.sfgpetclinic.model.Pet;
-import guru.springframework.sfgpetclinic.model.PetType;
-import guru.springframework.sfgpetclinic.model.Vet;
+import guru.springframework.sfgpetclinic.model.*;
 import guru.springframework.sfgpetclinic.services.OwnerService;
 import guru.springframework.sfgpetclinic.services.PetTypeService;
+import guru.springframework.sfgpetclinic.services.SpecialtyService;
 import guru.springframework.sfgpetclinic.services.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,13 +22,15 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialtyService specialtyService;
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialtyService specialtyService) {
         super();
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialtyService = specialtyService;
     }
 
     @Override
@@ -39,20 +39,47 @@ public class DataLoader implements CommandLineRunner {
         ArrayList<PetType> savedPetTypes = createPetTypeDataSet();
         createOwnerDataSet(savedPetTypes);
 
-        createVetDataSet();
+        ArrayList<Speciality> savedSpecialties = createSpecialtyDataSet();
+        createVetDataSet(savedSpecialties);
 
         logger.log(Level.INFO, "Finished loading Bootstrap Data");
     }
 
-    private void createVetDataSet() {
+
+    private ArrayList<Speciality> createSpecialtyDataSet() {
+        ArrayList<Speciality> savedSpecialties = new ArrayList<>();
+
+        Speciality radiology = new Speciality();
+        radiology.setDescription("Radiology");
+        Speciality savedRadiology = specialtyService.save(radiology);
+        savedSpecialties.add(savedRadiology);
+
+        Speciality surgery = new Speciality();
+        surgery.setDescription("Surgery");
+        Speciality savedSurgery = specialtyService.save(surgery);
+        savedSpecialties.add(savedSurgery);
+
+        Speciality dentistry = new Speciality();
+        dentistry.setDescription("Dentistry");
+        Speciality savedDentistry = specialtyService.save(dentistry);
+        savedSpecialties.add(savedDentistry);
+
+        logger.log(Level.INFO, "Loaded Specialties...");
+
+        return savedSpecialties;
+    }
+
+    private void createVetDataSet(ArrayList<Speciality> specialities) {
         Vet vetOne = new Vet();
         vetOne.setFirstName("Sam");
         vetOne.setLastName("Axe");
+        vetOne.getSpecialities().add(specialities.get(0));
         vetService.save(vetOne);
 
         Vet vetTwo = new Vet();
         vetTwo.setFirstName("Jessie");
         vetTwo.setLastName("Porter");
+        vetTwo.getSpecialities().add(specialities.get(1));
         vetService.save(vetTwo);
 
         logger.log(Level.INFO, "Loaded Vets...");
