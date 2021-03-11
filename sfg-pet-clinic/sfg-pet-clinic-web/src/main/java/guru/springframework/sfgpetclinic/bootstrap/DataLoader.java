@@ -36,56 +36,36 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        ArrayList<PetType> savedPetTypes = createPetTypeDataSet();
-        createOwnerDataSet(savedPetTypes);
+        if(ownerService.findAll().isEmpty()) {
+            ArrayList<PetType> loadedPetTypes = loadPetTypeData();
+            loadOwnerData(loadedPetTypes);
 
-        ArrayList<Speciality> savedSpecialties = createSpecialtyDataSet();
-        createVetDataSet(savedSpecialties);
+            ArrayList<Speciality> loadedSpecialties = loadSpecialtiesData();
+            loadVetsData(loadedSpecialties);
 
-        logger.log(Level.INFO, "Finished loading Bootstrap Data");
+            logger.log(Level.INFO, "Finished loading Bootstrap Data");
+        }
     }
 
+    private ArrayList<PetType> loadPetTypeData() {
+        ArrayList<PetType> savedPetTypes = new ArrayList<>();
 
-    private ArrayList<Speciality> createSpecialtyDataSet() {
-        ArrayList<Speciality> savedSpecialties = new ArrayList<>();
+        PetType dog = new PetType();
+        dog.setName("Dog");
+        PetType savedDogPetType = petTypeService.save(dog);
+        savedPetTypes.add(savedDogPetType);
 
-        Speciality radiology = new Speciality();
-        radiology.setDescription("Radiology");
-        Speciality savedRadiology = specialtyService.save(radiology);
-        savedSpecialties.add(savedRadiology);
+        PetType cat = new PetType();
+        cat.setName("Cat");
+        PetType savedCatPetType = petTypeService.save(cat);
+        savedPetTypes.add(savedCatPetType);
 
-        Speciality surgery = new Speciality();
-        surgery.setDescription("Surgery");
-        Speciality savedSurgery = specialtyService.save(surgery);
-        savedSpecialties.add(savedSurgery);
+        logger.log(Level.INFO, "Loaded Pet Types Data...");
 
-        Speciality dentistry = new Speciality();
-        dentistry.setDescription("Dentistry");
-        Speciality savedDentistry = specialtyService.save(dentistry);
-        savedSpecialties.add(savedDentistry);
-
-        logger.log(Level.INFO, "Loaded Specialties...");
-
-        return savedSpecialties;
+        return savedPetTypes;
     }
 
-    private void createVetDataSet(ArrayList<Speciality> specialities) {
-        Vet vetOne = new Vet();
-        vetOne.setFirstName("Sam");
-        vetOne.setLastName("Axe");
-        vetOne.getSpecialities().add(specialities.get(0));
-        vetService.save(vetOne);
-
-        Vet vetTwo = new Vet();
-        vetTwo.setFirstName("Jessie");
-        vetTwo.setLastName("Porter");
-        vetTwo.getSpecialities().add(specialities.get(1));
-        vetService.save(vetTwo);
-
-        logger.log(Level.INFO, "Loaded Vets...");
-    }
-
-    private void createOwnerDataSet(ArrayList<PetType> savedPetTypes) {
+    private void loadOwnerData(ArrayList<PetType> savedPetTypes) {
         Owner ownerOne = new Owner();
         ownerOne.setFirstName("Michael");
         ownerOne.setLastName("Weston");
@@ -118,24 +98,45 @@ public class DataLoader implements CommandLineRunner {
 
         ownerService.save(ownerTwo);
 
-        logger.log(Level.INFO, "Loaded Owners...");
+        logger.log(Level.INFO, "Loaded Owners Data...");
     }
 
-    private ArrayList<PetType> createPetTypeDataSet() {
-        ArrayList<PetType> savedPetTypes = new ArrayList<>();
+    private ArrayList<Speciality> loadSpecialtiesData() {
+        ArrayList<Speciality> savedSpecialties = new ArrayList<>();
 
-        PetType dog = new PetType();
-        dog.setName("Dog");
-        PetType savedDogPetType = petTypeService.save(dog);
-        savedPetTypes.add(savedDogPetType);
+        Speciality radiology = new Speciality();
+        radiology.setDescription("Radiology");
+        Speciality savedRadiology = specialtyService.save(radiology);
+        savedSpecialties.add(savedRadiology);
 
-        PetType cat = new PetType();
-        cat.setName("Cat");
-        PetType savedCatPetType = petTypeService.save(cat);
-        savedPetTypes.add(savedCatPetType);
+        Speciality surgery = new Speciality();
+        surgery.setDescription("Surgery");
+        Speciality savedSurgery = specialtyService.save(surgery);
+        savedSpecialties.add(savedSurgery);
 
-        logger.log(Level.INFO, "Loaded PetTypes...");
+        Speciality dentistry = new Speciality();
+        dentistry.setDescription("Dentistry");
+        Speciality savedDentistry = specialtyService.save(dentistry);
+        savedSpecialties.add(savedDentistry);
 
-        return savedPetTypes;
+        logger.log(Level.INFO, "Loaded Specialties Data...");
+
+        return savedSpecialties;
+    }
+
+    private void loadVetsData(ArrayList<Speciality> specialities) {
+        Vet vetOne = new Vet();
+        vetOne.setFirstName("Sam");
+        vetOne.setLastName("Axe");
+        vetOne.getSpecialities().add(specialities.get(0));
+        vetService.save(vetOne);
+
+        Vet vetTwo = new Vet();
+        vetTwo.setFirstName("Jessie");
+        vetTwo.setLastName("Porter");
+        vetTwo.getSpecialities().add(specialities.get(1));
+        vetService.save(vetTwo);
+
+        logger.log(Level.INFO, "Loaded Vets Data...");
     }
 }
