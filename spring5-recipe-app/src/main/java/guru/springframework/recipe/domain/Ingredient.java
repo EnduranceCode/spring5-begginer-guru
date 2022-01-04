@@ -29,11 +29,9 @@ public class Ingredient {
         super();
     }
 
-    public Ingredient(String description, BigDecimal amount, Recipe recipe,
-            UnitOfMeasure unitOfMeasure) {
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure) {
         this.description = description;
         this.amount = amount;
-        this.recipe = recipe;
         this.unitOfMeasure = unitOfMeasure;
     }
 
