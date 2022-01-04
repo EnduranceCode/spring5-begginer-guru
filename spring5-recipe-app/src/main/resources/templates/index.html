@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
-<title>Spring Framework 5 - Beginner to Guru : Recipe App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Spring Framework 5 - Beginner to Guru : Recipe App</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 <body>
-    <h1>My Recipes!</h1>
+<main class="container is-max-widescreen has-background-white">
+  <section class="section">
+    <h1 class="title is-1">My Recipes!</h1>
+
+    <table class="table is-fullwidth table is-striped">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.id}">id</td>
+        <td th:text="${recipe.description}">recipe_description</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
 </body>
 </html>
