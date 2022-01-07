@@ -14,7 +14,7 @@ public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String description;
     private BigDecimal amount;
@@ -35,11 +35,11 @@ public class Ingredient {
         this.unitOfMeasure = unitOfMeasure;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
