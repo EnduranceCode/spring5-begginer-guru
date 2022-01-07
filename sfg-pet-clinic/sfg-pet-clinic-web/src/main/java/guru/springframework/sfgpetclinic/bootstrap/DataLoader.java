@@ -1,18 +1,23 @@
 package guru.springframework.sfgpetclinic.bootstrap;
 
-import guru.springframework.sfgpetclinic.model.*;
+import guru.springframework.sfgpetclinic.model.Owner;
+import guru.springframework.sfgpetclinic.model.Pet;
+import guru.springframework.sfgpetclinic.model.PetType;
+import guru.springframework.sfgpetclinic.model.Speciality;
+import guru.springframework.sfgpetclinic.model.Vet;
+import guru.springframework.sfgpetclinic.model.Visit;
 import guru.springframework.sfgpetclinic.services.OwnerService;
 import guru.springframework.sfgpetclinic.services.PetTypeService;
 import guru.springframework.sfgpetclinic.services.SpecialtyService;
 import guru.springframework.sfgpetclinic.services.VetService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-
+import guru.springframework.sfgpetclinic.services.VisitService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -23,20 +28,24 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
+    private final VisitService visitService;
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialtyService specialtyService) {
+    public DataLoader(OwnerService ownerService, VetService vetService,
+            PetTypeService petTypeService, SpecialtyService specialtyService,
+            VisitService visitService) {
         super();
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialtyService = specialtyService;
+        this.visitService = visitService;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-        if(ownerService.findAll().isEmpty()) {
+        if (ownerService.findAll().isEmpty()) {
             ArrayList<PetType> loadedPetTypes = loadPetTypeData();
             loadOwnerData(loadedPetTypes);
 
@@ -94,9 +103,16 @@ public class DataLoader implements CommandLineRunner {
         ownerTwoPet.setName("Royal");
         ownerTwoPet.setBirthDate(LocalDate.now());
         ownerTwoPet.setOwner(ownerTwo);
-        ownerTwo.getPets().add(ownerOnePet);
+        ownerTwo.getPets().add(ownerTwoPet);
 
         ownerService.save(ownerTwo);
+
+        Visit ownerTwoPetVisit = new Visit();
+        ownerTwoPetVisit.setPet(ownerTwoPet);
+        ownerTwoPetVisit.setDate(LocalDate.now());
+        ownerTwoPetVisit.setDescription("Sneezy Kitty");
+
+        visitService.save(ownerTwoPetVisit);
 
         logger.log(Level.INFO, "Loaded Owners Data...");
     }
