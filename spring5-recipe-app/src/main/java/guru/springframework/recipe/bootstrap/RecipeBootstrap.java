@@ -11,13 +11,12 @@ import guru.springframework.recipe.repositories.RecipeRepository;
 import guru.springframework.recipe.repositories.UnitOfMeasureRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -39,6 +38,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getRecipes());
     }
@@ -181,11 +181,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 new Ingredient("ripe tomato, seeds and pulp removed, chopped", new BigDecimal(".5"),
                         eachUnitOfMeasure));
 
-        Set<Category> guacamoleCategories = new HashSet<>();
-        guacamoleCategories.add(americanCategory);
-        guacamoleCategories.add(mexicanCategory);
-
-        guacamoleRecipe.setCategories(guacamoleCategories);
+        guacamoleRecipe.getCategories().add(americanCategory);
+        guacamoleRecipe.getCategories().add(mexicanCategory);
 
         guacamoleRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/");
         guacamoleRecipe.setServings(4);
@@ -277,11 +274,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.addIngredients(
                 new Ingredient("lime, cut into wedges", new BigDecimal(4), eachUnitOfMeasure));
 
-        Set<Category> tacosCategories = new HashSet<>();
-        tacosCategories.add(americanCategory);
-        tacosCategories.add(mexicanCategory);
-
-        tacosRecipe.setCategories(tacosCategories);
+        tacosRecipe.getCategories().add(americanCategory);
+        tacosRecipe.getCategories().add(mexicanCategory);
 
         tacosRecipe.setUrl("http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
         tacosRecipe.setServings(4);

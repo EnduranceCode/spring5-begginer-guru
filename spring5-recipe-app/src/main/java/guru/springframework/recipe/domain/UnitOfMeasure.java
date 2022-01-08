@@ -1,10 +1,20 @@
 package guru.springframework.recipe.domain;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 public class UnitOfMeasure {
 
@@ -14,19 +24,20 @@ public class UnitOfMeasure {
 
     private String description;
 
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || Hibernate.getClass(this) != Hibernate.getClass(object)) {
+            return false;
+        }
+        UnitOfMeasure that = (UnitOfMeasure) object;
+        return id != null && Objects.equals(id, that.id);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
